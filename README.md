@@ -66,6 +66,20 @@ Copy `claude_desktop_config.json` content into your Claude Desktop config:
 
 Restart Claude Desktop. You'll see the Todo tools appear in the tools panel.
 
+```bash
+cat > ~/Library/Application\ Support/Claude/claude_desktop_config.json << 'EOF'
+{
+  "mcpServers": {
+    "todo-mcp-server": {
+      "type": "streamableHttp",
+      "url": "http://localhost:8081/mcp",
+      "headers": {}
+    }
+  }
+}
+EOF
+```
+
 ## Example Claude prompts
 
 Once connected, try these in Claude Desktop:
