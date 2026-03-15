@@ -23,6 +23,20 @@ docker-compose up -d
 
 ### 2. Get a JWT token from the Todo backend
 ```bash
+curl http://localhost:8080/actuator/health
+```
+```bash
+curl -X POST http://localhost:8080/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"username":"usename","email":"user@test.com","password":"password123"}'
+```
+```bash
+curl -X POST http://localhost:8080/api/todos \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <your_token>" \
+  -d '{"title":"Test todo","priority":"HIGH"}'
+```
+```bash
 curl -X POST http://localhost:8080/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"username":"youruser","password":"yourpassword"}'
@@ -34,6 +48,9 @@ Copy the `token` from the response.
 ```bash
 export TODO_BACKEND_JWT=<your_jwt_token>
 mvn spring-boot:run
+```
+```bash
+curl http://localhost:8081/mcp
 ```
 
 The MCP server starts on **http://localhost:8081**
