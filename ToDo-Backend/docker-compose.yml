@@ -57,36 +57,38 @@ services:
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
 
   # ── Prometheus ─────────────────────────────────────────────────────
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: todo-prometheus
-    ports:
-      - "9090:9090"
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    depends_on:
-      - app
+  # Uncomment when running via Docker (after mvn package)
+  # prometheus:
+  #   image: prom/prometheus:latest
+  #   container_name: todo-prometheus
+  #   ports:
+  #     - "9090:9090"
+  #   volumes:
+  #     - ./prometheus.yml:/etc/prometheus/prometheus.yml
+  #   depends_on:
+  #     - app
 
   # ── App ────────────────────────────────────────────────────────────
-  app:
-    build: .
-    container_name: todo-app
-    ports:
-      - "8080:8080"
-    environment:
-      DB_USER: root
-      DB_PASSWORD: root
-      REDIS_HOST: redis
-      KAFKA_BOOTSTRAP: kafka:29092
-      JWT_SECRET: superSecretKeyChangeInProd
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/tododb?useSSL=false&allowPublicKeyRetrieval=true
-    depends_on:
-      mysql:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      kafka:
-        condition: service_started
+  # Uncomment when running via Docker (after mvn package)
+  # app:
+  #   build: .
+  #   container_name: todo-app
+  #   ports:
+  #     - "8080:8080"
+  #   environment:
+  #     DB_USER: root
+  #     DB_PASSWORD: root
+  #     REDIS_HOST: redis
+  #     KAFKA_BOOTSTRAP: kafka:29092
+  #     JWT_SECRET: superSecretKeyChangeInProd
+  #     SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/tododb?useSSL=false&allowPublicKeyRetrieval=true
+  #   depends_on:
+  #     mysql:
+  #       condition: service_healthy
+  #     redis:
+  #       condition: service_healthy
+  #     kafka:
+  #       condition: service_started
 
 volumes:
   mysql-data:
