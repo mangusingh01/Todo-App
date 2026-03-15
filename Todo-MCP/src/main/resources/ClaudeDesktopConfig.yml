@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "todo-mcp-server": {
+      "type": "streamableHttp",
+      "url": "http://localhost:8081/mcp",
+      "headers": {}
+    }
+  }
+}
