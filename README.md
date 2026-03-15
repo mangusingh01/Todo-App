@@ -45,7 +45,10 @@ curl -X POST http://localhost:8080/api/auth/login \
 Copy the `token` from the response.
 
 ### 3. Start the MCP server
+
 ```bash
+TODO_BACKEND_JWT=<token_from_step_4>
+TODO_BACKEND_URL=http://localhost:8080
 export TODO_BACKEND_JWT=<your_jwt_token>
 mvn spring-boot:run
 ```
