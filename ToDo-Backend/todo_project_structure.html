@@ -1,0 +1,76 @@
+
+<style>
+  .tree { font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.8; padding: 20px 24px; }
+  .folder { color: var(--color-text-info); font-weight: 500; cursor: pointer; }
+  .folder:hover { text-decoration: underline; }
+  .file { color: var(--color-text-primary); }
+  .comment { color: var(--color-text-tertiary); font-size: 11px; margin-left: 6px; }
+  .badge { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 4px; margin-left: 8px; font-family: sans-serif; vertical-align: middle; }
+  .b-kafka { background: var(--color-background-warning); color: var(--color-text-warning); }
+  .b-redis { background: var(--color-background-danger); color: var(--color-text-danger); }
+  .b-obs { background: var(--color-background-success); color: var(--color-text-success); }
+  .b-core { background: var(--color-background-info); color: var(--color-text-info); }
+  .section-label { font-family: sans-serif; font-size: 11px; font-weight: 500; color: var(--color-text-secondary); margin: 16px 0 4px; letter-spacing: 0.05em; text-transform: uppercase; }
+</style>
+<div class="tree">
+  <div class="section-label">Project root</div>
+
+  <div><span class="folder">todo-backend/</span></div>
+  <div>&nbsp;&nbsp;├── <span class="folder">src/main/java/com/mangu/todo/</span></div>
+
+  <div class="section-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Core layers</div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;├── <span class="folder">controller/</span><span class="comment">— REST endpoints, request/response DTOs</span><span class="badge b-core">core</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span class="file">TodoController.java</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="file">UserController.java</span></div>
+
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;├── <span class="folder">service/</span><span class="comment">— Business logic, orchestration</span><span class="badge b-core">core</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span class="file">TodoService.java</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="file">UserService.java</span></div>
+
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;├── <span class="folder">repository/</span><span class="comment">— JDBC + JPA repos, query optimisation</span><span class="badge b-core">core</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span class="file">TodoRepository.java</span><span class="comment">— JDBC for bulk reads</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="file">UserRepository.java</span></div>
+
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;├── <span class="folder">model/</span><span class="comment">— JPA entities</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span class="file">Todo.java</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="file">User.java</span></div>
+
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;├── <span class="folder">dto/</span><span class="comment">— Request / Response objects</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span class="file">TodoRequest.java</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="file">TodoResponse.java</span></div>
+
+  <div class="section-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Infrastructure</div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;├── <span class="folder">cache/</span><span class="badge b-redis">redis</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span class="file">RedisConfig.java</span><span class="comment">— TTL, serialization setup</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="file">CacheService.java</span><span class="comment">— cache-aside logic</span></div>
+
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;├── <span class="folder">kafka/</span><span class="badge b-kafka">kafka</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span class="file">TodoEventProducer.java</span><span class="comment">— publishes on CUD ops</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span class="file">TodoEventConsumer.java</span><span class="comment">— audit + side effects</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span class="file">KafkaConfig.java</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="file">TodoEvent.java</span><span class="comment">— event schema (Avro-ready)</span></div>
+
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;├── <span class="folder">security/</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span class="file">JwtFilter.java</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="file">SecurityConfig.java</span></div>
+
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;├── <span class="folder">metrics/</span><span class="badge b-obs">observability</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="file">TodoMetrics.java</span><span class="comment">— custom Micrometer counters</span></div>
+
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;└── <span class="folder">exception/</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── <span class="file">GlobalExceptionHandler.java</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── <span class="file">TodoNotFoundException.java</span></div>
+
+  <div class="section-label">&nbsp;&nbsp;Config &amp; infra files</div>
+  <div>&nbsp;&nbsp;├── <span class="folder">src/main/resources/</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span class="file">application.yml</span><span class="comment">— all config here, no .properties</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="file">db/migration/V1__init.sql</span><span class="comment">— Flyway migration</span></div>
+
+  <div>&nbsp;&nbsp;├── <span class="folder">src/test/</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span class="file">TodoServiceTest.java</span><span class="comment">— unit tests (Mockito)</span></div>
+  <div>&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="file">TodoControllerTest.java</span><span class="comment">— integration (MockMvc)</span></div>
+
+  <div>&nbsp;&nbsp;├── <span class="file">docker-compose.yml</span><span class="comment">— full stack: app+mysql+redis+kafka+prometheus</span></div>
+  <div>&nbsp;&nbsp;├── <span class="file">Dockerfile</span></div>
+  <div>&nbsp;&nbsp;└── <span class="file">pom.xml</span></div>
+</div>

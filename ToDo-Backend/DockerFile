@@ -1,0 +1,20 @@
+# Stage 1: Build
+FROM maven:3.9-eclipse-temurin-17 AS builder
+WORKDIR /app
+COPY pom.xml .
+# Download dependencies first (Docker layer cache — faster rebuilds)
+RUN mvn dependency:go-offline -B
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+# Stage 2: Run — slim JRE image only
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /app
+COPY --from=builder /app/target/todo-backend-1.0.0.jar app.jar
+
+# Non-root user for security
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+USER appuser
+
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
