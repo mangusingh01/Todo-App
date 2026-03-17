@@ -47,6 +47,28 @@ Copy the `token` from the response.
 ### 3. Start the MCP server
 
 ```bash
+curl -X POST http://localhost:8080/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"username":"mangu","email":"mangu@test.com","password":"password123"}'
+```
+
+Copy the `token` from the response. Then:
+
+**Step 1 — Set environment variables in IntelliJ for Todo-MCP**
+
+Open `TodoMcpServerApplication.java` → Edit Run Configuration → Environment Variables → add:
+```bash
+TODO_BACKEND_JWT=<paste_token_here>
+TODO_BACKEND_URL=http://localhost:8080
+```
+
+**Step 2 — Run `TodoMcpServerApplication`**
+
+It should start on port `8081`. You'll see:
+```bash
+Started TodoMcpServerApplication on port 8081
+```
+```bash
 TODO_BACKEND_JWT=<token_from_step_4>
 TODO_BACKEND_URL=http://localhost:8080
 export TODO_BACKEND_JWT=<your_jwt_token>
