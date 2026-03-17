@@ -7,30 +7,30 @@ spring:
       server:
         name: todo-mcp-server
         version: 1.0.0
-        protocol: STREAMABLE           # Streamable HTTP ? works with Claude Desktop + claude.ai
         type: SYNC
-        annotation-scanner:
-          enabled: true                # picks up @McpTool annotations automatically
-        capabilities:
-          tool: true
-          resource: false
-          prompt: false
+        streamable-http:
+          enabled: true
+          mcp-endpoint: /mcp
+          sse-endpoint: /sse
 
 server:
-  port: 8081                           # Todo backend runs on 8080, MCP server on 8081
+  port: 8081
 
-# ?? Todo backend connection ????????????????????????????????????????
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
 todo:
   backend:
     base-url: ${TODO_BACKEND_URL:http://localhost:8080}
-    # JWT token for the MCP server to authenticate with the todo backend
-    # In production: inject via env var, never hardcode
     jwt-token: ${TODO_BACKEND_JWT:}
 
 logging:
   level:
-    org.springframework.ai: INFO
+    org.springframework.ai: DEBUG
     org.learnandforget: DEBUG
-  # Redirect to file ? keeps stdout clean for STDIO mode if ever needed
-  file:
-    name: ./logs/todo-mcp-server.log

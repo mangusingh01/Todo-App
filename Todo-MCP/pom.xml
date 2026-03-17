@@ -15,7 +15,6 @@
     <groupId>org.learnandforget</groupId>
     <artifactId>todo-mcp-server</artifactId>
     <version>1.0.0</version>
-    <name>todo-mcp-server</name>
     <description>MCP Server exposing Todo app operations as LLM-callable tools</description>
 
     <properties>
@@ -36,38 +35,46 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- ── Spring Web (needed for Streamable HTTP transport) ─── -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- ── Spring AI MCP Server (Streamable HTTP over WebMVC) ── -->
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-starter-mcp-server-webmvc</artifactId>
         </dependency>
 
-        <!-- ── HTTP client to call the Todo backend REST API ─────── -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
 
-        <!-- ── Utilities ─────────────────────────────────────────── -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
 
-        <!-- ── Test ──────────────────────────────────────────────── -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+        </repository>
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>
